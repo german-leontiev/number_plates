@@ -1,0 +1,9 @@
+.ipynb_checkpoints/
+custom_dataset/
+nomeroff_datasets/
+yolov5s_train/
+!yolov5s_train/weights/best.pt
+recognize_plates/.ipynb_checkpoints
+*.pt
+.idea/
+custom_dataset.yaml
