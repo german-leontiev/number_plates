@@ -23,9 +23,12 @@ for i, test in enumerate(glob("tests/*")):
 
     val_box_col = [l for l in df_res.columns if "val/box_loss" in l][0]
 
-    last_box_loss = df_res.loc[:,val_box_col].values[-1]
+    last_box_loss = df_res.loc[:, val_box_col].values[-1]
     model, optimizer, n_epochs = test.split("/")[1].split("_")
-    print(f"Model: {model}\nOptimizer: {optimizer}\nNumber of epochs: {n_epochs}\n\nBox_loss: {last_box_loss}\n" + "="*10)
+    print(
+        f"Model: {model}\nOptimizer: {optimizer}\nNumber of epochs: {n_epochs}\n\nBox_loss: {last_box_loss}\n"
+        + "=" * 10
+    )
     if last_box_loss < best_loss:
         best_loss = last_box_loss
         best_model = test
@@ -36,5 +39,4 @@ for i, test in enumerate(glob("tests/*")):
 # In[7]:
 
 
-shutil.copy(best_model + '/weights/best.pt', "best.pt")
-
+shutil.copy(best_model + "/weights/best.pt", "best.pt")

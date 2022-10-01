@@ -68,16 +68,16 @@ for subset in ["train", "val"]:
     ][0]
     with open(annotations_path, "r") as f:
         annotation = json.loads(f.read())
-#     ann_dir = dataset_root_dir + "/" + f"labels/{subset}" + "/"
+    #     ann_dir = dataset_root_dir + "/" + f"labels/{subset}" + "/"
 
-#     p.mkdir(p(ann_dir), parents=True, exist_ok=True)
+    #     p.mkdir(p(ann_dir), parents=True, exist_ok=True)
 
     nr = [
         (fn["filename"], fn["regions"])
         for fn in list(annotation["_via_img_metadata"].values())
     ]
     general_nr[subset] = nr
-    
+
 #     for filename, regions in tqdm(nr):
 
 #         s = source_dataset + subset + "/" + filename
@@ -123,8 +123,8 @@ nr = {}
 
 
 nr["val"] = general_nr["val"]
-nr["test"] = general_nr["train"][-int(TOTAL_IMAGES * .1):]
-nr["train"] = general_nr["train"][:-int(TOTAL_IMAGES * .1)]
+nr["test"] = general_nr["train"][-int(TOTAL_IMAGES * 0.1) :]
+nr["train"] = general_nr["train"][: -int(TOTAL_IMAGES * 0.1)]
 
 
 # In[57]:
@@ -136,7 +136,7 @@ for subset in nr.keys():
             source_subset = "train"
         else:
             source_subset = subset
-        
+
         ann_dir = dataset_root_dir + "/" + f"labels/{subset}" + "/"
 
         p.mkdir(p(ann_dir), parents=True, exist_ok=True)
@@ -175,7 +175,7 @@ for subset in nr.keys():
 
 model_types = ["yolov5n", "yolov5m", "yolov5x"]
 epochs = [20, 30, 40]
-optimizers = ['SGD', 'Adam', 'AdamW']
+optimizers = ["SGD", "Adam", "AdamW"]
 
 
 # In[ ]:
@@ -186,11 +186,9 @@ for mt in model_types:
         for opt in optimizers:
             name = f"{mt}_{opt}_{e}"
             weights = mt + ".pt"
-            get_ipython().system(' python yolov5/train.py --img 640 --batch 4 --epochs $e --data custom_dataset.yaml --weights $weights --project "tests" --name $name')
+            get_ipython().system(
+                ' python yolov5/train.py --img 640 --batch 4 --epochs $e --data custom_dataset.yaml --weights $weights --project "tests" --name $name'
+            )
 
 
 # In[ ]:
-
-
-
-

@@ -10,7 +10,7 @@ import matplotlib.patches as patches
 import numpy as np
 import torch
 
-get_ipython().run_line_magic('matplotlib', 'inline')
+get_ipython().run_line_magic("matplotlib", "inline")
 import cv2
 
 
@@ -87,7 +87,6 @@ for num_plate in final_res:
 
     th, im_gray_th_otsu = cv2.threshold(im_gray, 128, 255, cv2.THRESH_OTSU)
 
-
     SCALE_FACTOR = 1
 
     plate_img = plate_img.resize(
@@ -132,7 +131,7 @@ for num_plate in final_res:
     ax.add_patch(rect)
     plt.legend(bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0)
     plt.show()
-    
+
     tg_alpha_32 = abs(y3 - y2) / abs(x3 - x2)
     tg_alpha_41 = abs(y4 - y1) / abs(x4 - x1)
     tg_alpha = (tg_alpha_32 + tg_alpha_41) / 2
@@ -151,14 +150,9 @@ for num_plate in final_res:
 
     plate_arr = np.array(new_plate_img)[h_idxs[0] : h_idxs[-1], w_idxs[0] : w_idxs[-1]]
 
-
     custom_config = r"-c tessedit_char_whitelist=0123456789ABEKMHOPCTYX --oem 3 --psm 6"
     recognized = pytesseract.image_to_string(plate_arr, config=custom_config)
     print("Recognized number:", recognized)
 
 
 # In[ ]:
-
-
-
-
